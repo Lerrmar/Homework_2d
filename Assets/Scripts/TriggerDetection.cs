@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class TriggerDetection : MonoBehaviour
 {
-
-    [SerializeField]
-    private string _targetTag = "Player";
     [SerializeField]
     private VolumeChange _volumeChange;
 
@@ -19,7 +16,7 @@ public class TriggerDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(_targetTag))
+        if (collision.TryGetComponent<PlayerMove>(out PlayerMove player))
         {
             _volumeChange.TurnOnSiren();
         }
@@ -27,7 +24,7 @@ public class TriggerDetection : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(_targetTag))
+        if (collision.TryGetComponent<PlayerMove>(out PlayerMove player))
         {
             _volumeChange.TurnOffSiren();
         }
